@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": "./",
+    "sourceMap": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "./build",
+    "rootDir": "./src",
+    "target": "es6",
+    "skipLibCheck": true,
+    "strict": true,
+    "incremental": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ],
+      "@routes/*": [
+        "src/routes/*"
+      ],
+      "@test/*": [
+        "./test/*"
+      ]
+    },
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/*",
+    "build/*",
+    ".webpack/**/*",
+    ".vscode/**/*",
+    ".devcontainer/**/*"
+  ]
+}

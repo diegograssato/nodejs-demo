@@ -1,0 +1,13 @@
+{
+    "editor.formatOnSave": true,
+    "eslint.workingDirectories": [
+        {
+            "directory": "./test-project",
+            "changeProcessCWD": true
+        }
+    ],
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+    },
+    "prisma.fileWatcher": true
+}
