@@ -3,8 +3,6 @@ const user = require("../controllers/auth.controller");
 const auth = require("../middlewares/auth");
 
 
-
-
 // register
 router.post("/", user.register);
 

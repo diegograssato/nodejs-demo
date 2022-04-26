@@ -36,4 +36,4 @@ module.exports = function handleResponse(req: Request, res: Response, data: any)
     // } else {
     //     // return unauthorized
     //     res.send(401, "Unauthorized");
-    // }
+}

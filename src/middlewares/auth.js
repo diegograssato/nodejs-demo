@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
     req.headers.authorization &&
     req.headers.authorization.split(" ")[0] === "Bearer"
   ) {
-    token = req.headers.authorization.split(" ")[3];
+    token = req.headers.authorization.split(" ")[1];
   } else if (req.query && req.query.token) {
     token = req.query.token;
   }
