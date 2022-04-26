@@ -1,13 +1,13 @@
-const jwt = require("jsonwebtoken");
-const createError = require("http-errors");
+const jwt = require('jsonwebtoken')
+const createError = require('http-errors')
 
-require("dotenv").config();
+require('dotenv').config()
 
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
-const timeout = process.env.ACCESS_TOKEN_TIMEOUT;
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+const timeout = process.env.ACCESS_TOKEN_TIMEOUT
 
 module.exports = {
-  signAccessToken(payload) {
+  signAccessToken (payload) {
     return new Promise((resolve, reject) => {
       jwt.sign(
         { payload },
@@ -15,14 +15,14 @@ module.exports = {
         {},
         (err, token) => {
           if (err) {
-            reject(createError.InternalServerError());
+            reject(createError.InternalServerError())
           }
-          resolve(token);
+          resolve(token)
         }
-      );
-    });
+      )
+    })
   },
-  verifyAccessToken(token) {
+  verifyAccessToken (token) {
     return new Promise((resolve, reject) => {
       jwt.verify(
         token,
@@ -31,12 +31,12 @@ module.exports = {
         (err, payload) => {
           if (err) {
             const message =
-              err.name == "JsonWebTokenError" ? "Unauthorized" : err.message;
-            return reject(createError.Unauthorized(message));
+              err.name == 'JsonWebTokenError' ? 'Unauthorized' : err.message
+            return reject(createError.Unauthorized(message))
           }
-          resolve(payload);
+          resolve(payload)
         }
-      );
-    });
-  },
-};
+      )
+    })
+  }
+}

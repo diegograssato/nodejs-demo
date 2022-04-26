@@ -1,39 +1,37 @@
 
-import next, { Request, Response } from "express";
-import { first, last } from "lodash";
-//const handleResponse = (res: Request, data: Response) => res.status(200).send(data);
-var halson = require('halson');
+import next, { Request, Response } from 'express'
+import { first, last } from 'lodash'
+// const handleResponse = (res: Request, data: Response) => res.status(200).send(data);
+const halson = require('halson')
 
 interface ResponseHandle {
     data: any;
     meta?: any;
-};
+}
 
+module.exports = function handleResponse (req: Request, res: Response, data: any) {
+  // if (!data) {
+  //     next();
 
-module.exports = function handleResponse(req: Request, res: Response, data: any) {
+  // }
+  const meta = {
+    requestDateTime: new Date()
+  }
 
-    // if (!data) {
-    //     next();
+  const respt: ResponseHandle = { data, meta }
 
-    // }
-    let meta = {
-        requestDateTime: new Date()
-    }
+  const resource = halson(respt).addLink('self', '/users/')
 
-    const respt: ResponseHandle = { data: data, meta }
+  res.json(resource)
 
-    var resource = halson(respt).addLink('self', '/users/');
+  // if (res.statusCode !== 200) {
 
-    res.json(resource);
+  // } else {
 
-    // if (res.statusCode !== 200) {
-
-    // } else {
-
-    // }
-    // if (req.user) {
-    //     next();
-    // } else {
-    //     // return unauthorized
-    //     res.send(401, "Unauthorized");
+  // }
+  // if (req.user) {
+  //     next();
+  // } else {
+  //     // return unauthorized
+  //     res.send(401, "Unauthorized");
 }
