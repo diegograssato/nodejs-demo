@@ -1,6 +1,6 @@
+import createError from 'http-errors'
+import handleResponse from '../utils/handleResponse'
 const auth = require('../services/auth.service')
-const createError = require('http-errors')
-const handleResponse = require('../utils/handleResponse')
 
 class authController {
   static register = async (req, res, next) => {

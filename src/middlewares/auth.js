@@ -1,5 +1,6 @@
+import { createError } from 'http-errors'
+
 const jwt = require('../utils/jwt')
-const createError = require('http-errors')
 
 const auth = async (req, res, next) => {
   let token

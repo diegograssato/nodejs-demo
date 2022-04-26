@@ -1,9 +1,9 @@
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client'
+import { createError } from 'http-errors'
 
 const bcrypt = require('bcryptjs')
 const jwt = require('../utils/jwt')
-const createError = require('http-errors')
+const prisma = new PrismaClient()
 
 class authService {
   static async register (data) {

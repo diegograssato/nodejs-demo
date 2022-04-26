@@ -21,12 +21,12 @@ class App {
     this.handlers()
   }
 
-  handlers () {
+  handlers (): void {
     this.server.use(errorHandler)
     this.server.use(notFoundHandler)
   }
 
-  middlewares () {
+  middlewares (): void {
     /** Logging */
     this.server.use(morgan('dev'))
     /** Parse the request */
@@ -42,7 +42,7 @@ class App {
     this.server.use(express.json())
   }
 
-  routes () {
+  routes (): void {
     this.server.use(router)
   }
 }
