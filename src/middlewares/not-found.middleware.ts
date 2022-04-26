@@ -1,18 +1,14 @@
 
-import { Request, Response, NextFunction } from "express";
-const handleResponse = require("../utils/handleResponse");
+import { Request, Response, NextFunction } from 'express'
+const handleResponse = require('../utils/handleResponse')
 
 export const notFoundHandler = (
-    request: Request,
-    response: Response,
-    next: NextFunction
+  request: Request,
+  response: Response,
+  next: NextFunction
 ) => {
+  const message = 'Resource not found'
 
-    const message = "Resource not found";
-
-    response.statusCode = 400;
-    handleResponse(request, response, message);
-
-};
-
-
+  response.statusCode = 400
+  handleResponse(request, response, message)
+}

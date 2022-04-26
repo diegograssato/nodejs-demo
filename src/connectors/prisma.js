@@ -1,11 +1,11 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
-async function main() {
+async function main () {
   // ... your Prisma Client queries will go here
-  console.log(" A qui");
+  console.log('Aqui')
 }
 
 main()
   .catch((e) => console.error(e))
-  .finally(async () => await prisma.disconnect());
+  .finally(async () => await prisma.disconnect())

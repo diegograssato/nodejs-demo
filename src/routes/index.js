@@ -1,19 +1,17 @@
 
-import express, { Request, Response } from "express";
+import express, { Request, Response } from 'express'
 
+export const router = express.Router()
 
-export const router = express.Router();
+const auth = require('./auth').default
 
+const createError = require('http-errors')
 
-const auth = require("./auth");
+router.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
-const createError = require("http-errors");
-
-router.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-router.use("/auth", auth);
+router.use('/auth', auth)
 
 // router.use(async (req, res, next) => {
 //   next(createError.NotFound("Route not Found"));
@@ -25,5 +23,3 @@ router.use("/auth", auth);
 //     message: err.message,
 //   });
 // });
-
-
