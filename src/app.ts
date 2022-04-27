@@ -8,7 +8,7 @@ import morgan from 'morgan'
 import { errorHandler } from './middlewares/error.middleware'
 import { notFoundHandler } from './middlewares/not-found.middleware'
 
-import { router } from '@routes/index'
+import router from '@routes/index'
 
 class App {
   public server
