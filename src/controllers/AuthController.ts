@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
+import { AuthService } from '../services/AuthService'
 // import handleResponse from '../utils/handleResponse'
-const auth = require('../services/auth.service')
 
 export class AuthController {
   public static async register (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
-      const user = await auth.register(req.body)
+      const user = await AuthService.register(req.body)
 
       // handleResponse(req, res, user);
       return res.status(200).json({
@@ -21,7 +21,7 @@ export class AuthController {
 
   public static async login (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
-      const data = await auth.login(req.body)
+      const data = await AuthService.login(req.body)
       return res.status(200).json({
         status: true,
         message: 'Account login successful',
@@ -34,7 +34,7 @@ export class AuthController {
 
   public static async all (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
-      const users = await auth.all()
+      const users = await AuthService.all()
 
       // throw new createError[405];
       // handleResponse(req, res, users)
