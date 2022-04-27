@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import createError from 'http-errors'
-import { signAccessToken } from '../utils/jwt'
+import { JwtUtil } from '../utils/JwtUtil'
 
 import bcrypt from 'bcryptjs'
 
@@ -43,7 +43,7 @@ export class AuthService {
       console.log(user)
     }
 
-    data.accessToken = await signAccessToken(user)
+    data.accessToken = await JwtUtil.signAccessToken(user)
 
     return data
   }
@@ -69,7 +69,7 @@ export class AuthService {
 
     delete user.password
 
-    const accessToken = await signAccessToken(user)
+    const accessToken = await JwtUtil.signAccessToken(user)
 
     return { ...user, accessToken }
   }

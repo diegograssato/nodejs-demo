@@ -1,6 +1,5 @@
 import { createError } from 'http-errors'
-
-const jwt = require('../utils/jwt')
+import { JwtUtil } from '../utils/JwtUtil'
 
 const auth = async (req, res, next) => {
   let token
@@ -17,7 +16,7 @@ const auth = async (req, res, next) => {
     return next(createError.Unauthorized('Access token is required'))
   }
 
-  await jwt
+  await JwtUtil
     .verifyAccessToken(token)
     .then((user) => {
       req.user = user
