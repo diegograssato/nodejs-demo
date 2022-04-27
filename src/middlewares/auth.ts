@@ -1,7 +1,8 @@
-import { createError } from 'http-errors'
+import { Response, NextFunction } from 'express'
+import createError from 'http-errors'
 import { JwtUtil } from '../utils/JwtUtil'
 
-const auth = async (req, res, next) => {
+export const auth = async (req: any, res: Response, next: NextFunction): Promise<any> => {
   let token
   if (
     req.headers.authorization &&
@@ -13,7 +14,7 @@ const auth = async (req, res, next) => {
   }
 
   if (!token) {
-    return next(createError.Unauthorized('Access token is required'))
+    return next(new createError.Unauthorized('Access token is required'))
   }
 
   await JwtUtil
@@ -23,8 +24,6 @@ const auth = async (req, res, next) => {
       next()
     })
     .catch((e) => {
-      next(createError.Unauthorized(e.message))
+      next(new createError.Unauthorized(e.message))
     })
 }
-
-export default auth
