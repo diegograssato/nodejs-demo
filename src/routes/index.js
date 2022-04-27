@@ -1,5 +1,4 @@
-
-import express, { Request, Response } from 'express'
+import express from 'express'
 
 export const router = express.Router()
 
