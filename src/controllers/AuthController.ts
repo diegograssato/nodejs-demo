@@ -3,7 +3,7 @@ import createError from 'http-errors'
 // import handleResponse from '../utils/handleResponse'
 const auth = require('../services/auth.service')
 
-class authController {
+export class AuthController {
   public static async register (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
       const user = await auth.register(req.body)
@@ -49,5 +49,3 @@ class authController {
     }
   }
 }
-
-module.exports = authController
