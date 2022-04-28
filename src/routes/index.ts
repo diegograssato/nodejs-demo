@@ -1,17 +1,14 @@
+import { Router } from 'express'
+import authRouter from './auth'
 
-import express, { Request, Response } from 'express'
-
-export const router = express.Router()
-
-const auth = require('./auth').default
-
-const createError = require('http-errors')
+// import createError from 'http-errors'
+const router = Router()
 
 router.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-router.use('/auth', auth)
+router.use('/auth', authRouter)
 
 // router.use(async (req, res, next) => {
 //   next(createError.NotFound("Route not Found"));
@@ -23,3 +20,5 @@ router.use('/auth', auth)
 //     message: err.message,
 //   });
 // });
+
+export default router

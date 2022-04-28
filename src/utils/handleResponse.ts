@@ -1,15 +1,14 @@
 
-import next, { Request, Response } from 'express'
-import { first, last } from 'lodash'
-// const handleResponse = (res: Request, data: Response) => res.status(200).send(data);
+import { Request, Response } from 'express'
 const halson = require('halson')
 
+// const handleResponse = (res: Request, data: Response) => res.status(200).send(data);
 interface ResponseHandle {
     data: any;
     meta?: any;
 }
 
-module.exports = function handleResponse (req: Request, res: Response, data: any) {
+module.exports = function handleResponse (req: Request, res: Response, data: any): void {
   // if (!data) {
   //     next();
 
