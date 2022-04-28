@@ -34,6 +34,7 @@
     "jest": "^27.0.6",
     "prettier-plugin-prisma": "^3.9.0",
     "prisma": "^3.9.2",
+    "sucrase": "^3.21.0",
     "supertest": "^6.1.3",
     "ts-jest": "^27.0.3",
     "ts-node-dev": "^1.1.8",
@@ -42,8 +43,8 @@
   },
   "scripts": {
     "nodemon": "./node_modules/.bin/nodemon",
-    "dev": "nodemon --watch 'src/' --exec 'ts-node  -r tsconfig-paths/register  src/index.ts' -e ts,js",
-    "debug": "nodemon --watch 'src/' --inspect --exec 'ts-node  -r tsconfig-paths/register src/index.ts' -e ts,js",
+    "dev": "nodemon --legacy-watch 'src/' --exec 'node -r sucrase/register -r tsconfig-paths/register src/index.ts --transforms typescript,imports' -e ts,js",
+    "debug": "nodemon --legacy-watch 'src/' --inspect --exec 'node -r sucrase/register -r tsconfig-paths/register src/index.ts --transforms typescript,imports' -e ts,js",
     "dev-all": "ts-node-dev -r tsconfig-paths/register src/index.ts",
     "test": "jest",
     "build": "rm -rf build/ && prettier --write src/ && tsc",
