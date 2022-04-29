@@ -9,6 +9,6 @@ export const notFoundHandler = (
 ) => {
   const message = 'Resource not found'
 
-  response.statusCode = 400
+  response.statusCode = 404
   handleResponse(request, response, message)
 }

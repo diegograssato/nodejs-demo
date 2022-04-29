@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import createError from 'http-errors'
+import { DefaultError } from '@src/middlewares/error.middleware'
 
 // const timeout = process.env.ACCESS_TOKEN_TIMEOUT
 
@@ -18,9 +18,9 @@ export class JwtUtil {
         {},
         (err, token: string | undefined) => {
           if (err) {
-            reject(new createError.InternalServerError())
+            reject(new DefaultError('Internal Server Error', 500))
           }
-          token ? resolve(token) : reject(new createError.InternalServerError())
+          token ? resolve(token) : reject(new DefaultError('Internal Server Error', 500))
         }
       )
     })
@@ -38,7 +38,7 @@ export class JwtUtil {
           if (err) {
             const message =
               err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message
-            return reject(new createError.Unauthorized(message))
+            return reject(new DefaultError(message, 401))
           }
           resolve(payload)
         }

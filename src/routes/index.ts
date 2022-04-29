@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import authRouter from './auth'
 
-// import createError from 'http-errors'
 const router = Router()
 
 router.get('/', (req, res) => {
