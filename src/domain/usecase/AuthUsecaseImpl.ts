@@ -1,12 +1,10 @@
-import { PrismaClient } from '@prisma/client'
 import { JwtUtil } from '../../utils/JwtUtil'
 
 import bcrypt from 'bcryptjs'
 import { DefaultError } from '@src/adapter/rest/middlewares/error.middleware'
 
 import { AuthUsecase } from '../port/AuthUsecase'
-
-const prisma = new PrismaClient()
+import { AuthRepositoryImpl } from '../../adapter/repository/AuthRepositoryImpl'
 
 export class MainEntityModel {
   id: number
@@ -28,16 +26,18 @@ export class UserResponseModel extends MainEntityModel {
 
 export class AuthUsecaseImpl implements AuthUsecase {
   async register (data: UserRequestModel): Promise<UserResponseModel> {
+    const authRepository = new AuthRepositoryImpl()
+
     const { email } = data
 
     data.password = bcrypt.hashSync(data.password, 8)
-    let user = await prisma.user.findUnique({
+    let user = await authRepository.getUser({
       where: {
         email
       }
     })
     if (!user) {
-      user = await prisma.user.create({
+      user = await authRepository.createUser({
         data
       })
     } else {
@@ -51,10 +51,12 @@ export class AuthUsecaseImpl implements AuthUsecase {
   }
 
   async login (data: UserRequestModel): Promise<UserResponseModel> {
+    const authRepository = new AuthRepositoryImpl()
+
     const { email, password } = data
     let checkPassword = false
 
-    const user = <UserResponseModel> await prisma.user.findUnique({
+    const user = <UserResponseModel> await authRepository.getUser({
       where: {
         email
       }
@@ -79,7 +81,9 @@ export class AuthUsecaseImpl implements AuthUsecase {
   }
 
   async all (): Promise<UserResponseModel[]> {
-    const allUsers = await prisma.user.findMany()
+    const authRepository = new AuthRepositoryImpl()
+
+    const allUsers = await authRepository.getUsers()
 
     return allUsers
   }
