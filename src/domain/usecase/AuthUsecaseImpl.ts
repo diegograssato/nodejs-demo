@@ -4,6 +4,8 @@ import { JwtUtil } from '../../utils/JwtUtil'
 import bcrypt from 'bcryptjs'
 import { DefaultError } from '@src/adapter/rest/middlewares/error.middleware'
 
+import { AuthUsecase } from '../port/AuthUsecase'
+
 const prisma = new PrismaClient()
 
 export class MainEntityModel {
@@ -24,8 +26,8 @@ export class UserResponseModel extends MainEntityModel {
   password?: string | null
 }
 
-export class AuthUsecase {
-  static async register (data: UserRequestModel): Promise<UserResponseModel> {
+export class AuthUsecaseImpl implements AuthUsecase {
+  async register (data: UserRequestModel): Promise<UserResponseModel> {
     const { email } = data
 
     data.password = bcrypt.hashSync(data.password, 8)
@@ -48,7 +50,7 @@ export class AuthUsecase {
     return data
   }
 
-  static async login (data: UserRequestModel): Promise<UserResponseModel> {
+  async login (data: UserRequestModel): Promise<UserResponseModel> {
     const { email, password } = data
     let checkPassword = false
 
@@ -76,7 +78,7 @@ export class AuthUsecase {
     return { ...user, accessToken }
   }
 
-  static async all (): Promise<UserResponseModel[]> {
+  async all (): Promise<UserResponseModel[]> {
     const allUsers = await prisma.user.findMany()
 
     return allUsers

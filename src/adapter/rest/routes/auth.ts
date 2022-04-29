@@ -4,8 +4,10 @@ import { Router } from 'express'
 
 const authRouter = Router()
 
-authRouter.post('/', AuthController.createUser)
-authRouter.post('/login', AuthController.login)
-authRouter.get('/', auth, AuthController.getAllUsers)
+const authController = new AuthController()
+
+authRouter.post('/', authController.createUser)
+authRouter.post('/login', authController.login)
+authRouter.get('/', auth, authController.getAllUsers)
 
 export default authRouter
