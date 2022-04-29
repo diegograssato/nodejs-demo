@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client'
-import { JwtUtil } from '../utils/JwtUtil'
+import { JwtUtil } from '../../utils/JwtUtil'
 
 import bcrypt from 'bcryptjs'
-import { DefaultError } from '@src/middlewares/error.middleware'
+import { DefaultError } from '@src/adapter/rest/middlewares/error.middleware'
 
 const prisma = new PrismaClient()
 
@@ -24,7 +24,7 @@ export class UserResponseModel extends MainEntityModel {
   password?: string | null
 }
 
-export class AuthService {
+export class AuthUsecase {
   static async register (data: UserRequestModel): Promise<UserResponseModel> {
     const { email } = data
 

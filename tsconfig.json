@@ -24,7 +24,7 @@
         "src/*"
       ],
       "@routes/*": [
-        "src/routes/*"
+        "src/adapter/rest/routes/*"
       ],
       "@test/*": [
         "./test/*"

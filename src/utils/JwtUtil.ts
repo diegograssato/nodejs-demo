@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { DefaultError } from '@src/middlewares/error.middleware'
+import { DefaultError } from '@src/adapter/rest/middlewares/error.middleware'
 
 // const timeout = process.env.ACCESS_TOKEN_TIMEOUT
 

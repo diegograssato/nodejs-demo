@@ -1,6 +1,6 @@
 
 import { Request, Response, NextFunction } from 'express'
-const handleResponse = require('../utils/handleResponse')
+const handleResponse = require('../../../utils/handleResponse')
 
 export const notFoundHandler = (
   request: Request,

@@ -5,8 +5,8 @@ import compression from 'compression'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 
-import { errorHandler } from './middlewares/error.middleware'
-import { notFoundHandler } from './middlewares/not-found.middleware'
+import { errorHandler } from './adapter/rest/middlewares/error.middleware'
+import { notFoundHandler } from './adapter/rest/middlewares/not-found.middleware'
 
 import router from '@routes/index'
 

@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express'
-import { JwtUtil } from '../utils/JwtUtil'
+import { JwtUtil } from '../../../utils/JwtUtil'
 import { DefaultError } from './error.middleware'
 
 export const auth = async (req: any, res: Response, next: NextFunction): Promise<any> => {
