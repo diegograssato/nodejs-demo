@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express'
-import createError from 'http-errors'
 import { JwtUtil } from '../utils/JwtUtil'
+import { DefaultError } from './error.middleware'
 
 export const auth = async (req: any, res: Response, next: NextFunction): Promise<any> => {
   let token
@@ -14,7 +14,7 @@ export const auth = async (req: any, res: Response, next: NextFunction): Promise
   }
 
   if (!token) {
-    return next(new createError.Unauthorized('Access token is required'))
+    return next(new DefaultError('Access token is required', 401))
   }
 
   await JwtUtil
@@ -23,7 +23,7 @@ export const auth = async (req: any, res: Response, next: NextFunction): Promise
       req.user = user
       next()
     })
-    .catch((e) => {
-      next(new createError.Unauthorized(e.message))
+    .catch(() => {
+      next(new DefaultError('Unauthorized', 401))
     })
 }

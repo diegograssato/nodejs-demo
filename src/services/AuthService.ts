@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client'
-import createError from 'http-errors'
 import { JwtUtil } from '../utils/JwtUtil'
 
 import bcrypt from 'bcryptjs'
+import { DefaultError } from '@src/middlewares/error.middleware'
 
 const prisma = new PrismaClient()
 
@@ -59,13 +59,15 @@ export class AuthService {
     })
 
     if (!user) {
-      throw new createError.NotFound('User not registered')
+      throw new DefaultError('User no registered', 400)
     }
 
     if (user.password) {
       checkPassword = bcrypt.compareSync(password, user.password)
     }
-    if (!checkPassword) { throw new createError.Unauthorized('Email address or password not valid') }
+    if (!checkPassword) {
+      throw new DefaultError('Email address or password not valid', 401)
+    }
 
     delete user.password
 
