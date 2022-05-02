@@ -5,6 +5,7 @@ import { DefaultError } from '@src/adapter/rest/middlewares/error.middleware'
 
 import { AuthUsecase } from '../port/AuthUsecase'
 import { AuthRepositoryImpl } from '../../adapter/repository/AuthRepositoryImpl'
+import { AuthRepository } from '../port/AuthRepository'
 
 export class MainEntityModel {
   id: number
@@ -25,19 +26,23 @@ export class UserResponseModel extends MainEntityModel {
 }
 
 export class AuthUsecaseImpl implements AuthUsecase {
-  async register (data: UserRequestModel): Promise<UserResponseModel> {
-    const authRepository = new AuthRepositoryImpl()
+  public authRepository: AuthRepository
 
+  constructor () {
+    this.authRepository = new AuthRepositoryImpl()
+  }
+
+  async register (data: UserRequestModel): Promise<UserResponseModel> {
     const { email } = data
 
     data.password = bcrypt.hashSync(data.password, 8)
-    let user = await authRepository.getUser({
+    let user = await this.authRepository.getUser({
       where: {
         email
       }
     })
     if (!user) {
-      user = await authRepository.createUser({
+      user = await this.authRepository.createUser({
         data
       })
     } else {
@@ -51,12 +56,10 @@ export class AuthUsecaseImpl implements AuthUsecase {
   }
 
   async login (data: UserRequestModel): Promise<UserResponseModel> {
-    const authRepository = new AuthRepositoryImpl()
-
     const { email, password } = data
     let checkPassword = false
 
-    const user = <UserResponseModel> await authRepository.getUser({
+    const user = <UserResponseModel> await this.authRepository.getUser({
       where: {
         email
       }
@@ -81,9 +84,7 @@ export class AuthUsecaseImpl implements AuthUsecase {
   }
 
   async all (): Promise<UserResponseModel[]> {
-    const authRepository = new AuthRepositoryImpl()
-
-    const allUsers = await authRepository.getUsers()
+    const allUsers = await this.authRepository.getUsers()
 
     return allUsers
   }

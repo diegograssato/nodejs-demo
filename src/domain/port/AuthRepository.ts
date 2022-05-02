@@ -1,5 +1,7 @@
+import { User } from '../model/User'
+
 export interface AuthRepository {
-    getUser(data: any): any
-    createUser(data: any): any
-    getUsers(): any
+    getUser(data: any): Promise<User>
+    createUser(data: any): Promise<User>
+    getUsers(): Promise<User[]>
 }

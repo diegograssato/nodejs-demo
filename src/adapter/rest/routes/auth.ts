@@ -6,8 +6,8 @@ const authRouter = Router()
 
 const authController = new AuthController()
 
-authRouter.post('/', authController.createUser)
-authRouter.post('/login', authController.login)
-authRouter.get('/', auth, authController.getAllUsers)
+authRouter.post('/', (req, res, next) => authController.createUser(req, res, next))
+authRouter.post('/login', (req, res, next) => authController.login(req, res, next))
+authRouter.get('/', auth, (req, res, next) => authController.getAllUsers(req, res, next))
 
 export default authRouter
