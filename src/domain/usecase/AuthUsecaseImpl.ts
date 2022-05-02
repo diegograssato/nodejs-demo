@@ -3,27 +3,10 @@ import { JwtUtil } from '../../utils/JwtUtil'
 import bcrypt from 'bcryptjs'
 import { DefaultError } from '@src/adapter/rest/middlewares/error.middleware'
 
-import { AuthUsecase } from '../port/AuthUsecase'
+import { AuthUsecase, UserRequest } from '../port/AuthUsecase'
 import { AuthRepositoryImpl } from '../../adapter/repository/AuthRepositoryImpl'
 import { AuthRepository } from '../port/AuthRepository'
-
-export class MainEntityModel {
-  id: number
-  name: string | null
-  email: string
-}
-
-export class UserRequestModel extends MainEntityModel {
-  password: string
-  accessToken: string
-}
-
-export class UserResponseModel extends MainEntityModel {
-  createdAt?: Date
-  updateAt?: Date
-  accessToken?: string
-  password?: string | null
-}
+import { User } from '../model/User'
 
 export class AuthUsecaseImpl implements AuthUsecase {
   public authRepository: AuthRepository
@@ -32,34 +15,35 @@ export class AuthUsecaseImpl implements AuthUsecase {
     this.authRepository = new AuthRepositoryImpl()
   }
 
-  async register (data: UserRequestModel): Promise<UserResponseModel> {
+  async register (data: UserRequest): Promise<User> {
     const { email } = data
 
-    data.password = bcrypt.hashSync(data.password, 8)
     let user = await this.authRepository.getUser({
       where: {
         email
       }
     })
+
     if (!user) {
+      data.password = bcrypt.hashSync(data.password, 8)
       user = await this.authRepository.createUser({
         data
       })
     } else {
-      console.log('Ja existe')
-      console.log(user)
+      // TODO: usuario ja existente com esse email
+      console.log('Ja existe!')
     }
 
-    data.accessToken = await JwtUtil.signAccessToken(user)
+    user.accessToken = await JwtUtil.signAccessToken(user)
 
-    return data
+    return user
   }
 
-  async login (data: UserRequestModel): Promise<UserResponseModel> {
+  async login (data: UserRequest): Promise<User> {
     const { email, password } = data
     let checkPassword = false
 
-    const user = <UserResponseModel> await this.authRepository.getUser({
+    const user = await this.authRepository.getUser({
       where: {
         email
       }
@@ -83,7 +67,7 @@ export class AuthUsecaseImpl implements AuthUsecase {
     return { ...user, accessToken }
   }
 
-  async all (): Promise<UserResponseModel[]> {
+  async all (): Promise<User[]> {
     const allUsers = await this.authRepository.getUsers()
 
     return allUsers

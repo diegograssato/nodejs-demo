@@ -5,4 +5,5 @@ export class User {
   password?: string
   createAt?: Date
   updateAt?: Date
+  accessToken?: string
 }
