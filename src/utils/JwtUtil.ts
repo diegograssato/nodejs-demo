@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import { DefaultError } from '@src/adapter/rest/middlewares/error.middleware'
 
 // const timeout = process.env.ACCESS_TOKEN_TIMEOUT
 
@@ -18,9 +17,9 @@ export class JwtUtil {
         {},
         (err, token: string | undefined) => {
           if (err) {
-            reject(new DefaultError('Internal Server Error', 500))
+            reject(new Error())
           }
-          token ? resolve(token) : reject(new DefaultError('Internal Server Error', 500))
+          token ? resolve(token) : reject(new Error())
         }
       )
     })
@@ -36,9 +35,7 @@ export class JwtUtil {
         {},
         (err, payload: any) => {
           if (err) {
-            const message =
-              err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message
-            return reject(new DefaultError(message, 401))
+            return reject(err)
           }
           resolve(payload)
         }

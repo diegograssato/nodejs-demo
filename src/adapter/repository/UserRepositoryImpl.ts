@@ -5,13 +5,17 @@ import { User } from '@src/domain/model/User'
 const prisma = new PrismaClient()
 
 export class UserRepositoryImpl implements UserRepository {
-  async getUser (email: string): Promise<User> {
+  async getUser (email: string): Promise<User | null> {
     let user: User = new User()
     const userEntity = await prisma.user.findUnique({
       where: {
         email
       }
     })
+
+    if (!userEntity) {
+      return null
+    }
 
     user = {
       id: userEntity?.id as number,

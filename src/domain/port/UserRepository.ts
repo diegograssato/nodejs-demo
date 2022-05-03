@@ -8,7 +8,7 @@ export class UserDto {
 }
 
 export interface UserRepository {
-    getUser(email: string): Promise<User>
+    getUser(email: string): Promise<User | null>
     createUser(userDto: UserDto): Promise<User>
     getUsers(): Promise<User[]>
 }
