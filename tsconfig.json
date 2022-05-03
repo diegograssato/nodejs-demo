@@ -18,6 +18,7 @@
     "strict": true,
     "incremental": true,
     "allowJs": true,
+    "noImplicitAny": true,
     "moduleResolution": "node",
     "paths": {
       "@src/*": [

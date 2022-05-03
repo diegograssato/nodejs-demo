@@ -22,8 +22,7 @@ export class AuthController {
 
   public async createUser (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
-      const user = await this.authUsecase.register(req.body)
-      const userResponse: UserResponse = user
+      const userResponse: UserResponse = await this.authUsecase.register(req.body)
       const response = new BaseResponse(201, 'User created successfully', userResponse)
 
       return res.status(201).json(response)
@@ -33,9 +32,9 @@ export class AuthController {
   }
 
   public async login (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
+    const { email, password } = req.body
     try {
-      const data = await this.authUsecase.login(req.body)
-      const userResponse: UserResponse = data
+      const userResponse: UserResponse = await this.authUsecase.login(email, password)
       const response = new BaseResponse(200, 'Account login successful', userResponse)
       return res.status(200).json(response)
     } catch (err: any) {
@@ -45,8 +44,7 @@ export class AuthController {
 
   public async getAllUsers (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
-      const users = await this.authUsecase.all()
-      const userResponse: UserResponse[] = users
+      const userResponse: UserResponse[] = await this.authUsecase.all()
       const response = new BaseResponse(200, 'All users', userResponse)
 
       return res.status(200).json(response)

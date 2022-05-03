@@ -1,6 +1,6 @@
 import { User } from '../model/User'
 
-export class UserRequest {
+export class UserDTO {
   id: number
   name: string | null
   email: string
@@ -9,7 +9,7 @@ export class UserRequest {
 }
 
 export interface AuthUsecase {
-    register(data: UserRequest): Promise<User>;
-    login(data: UserRequest): Promise<User>;
+    register(data: UserDTO): Promise<User>;
+    login(email: string, password: string): Promise<User>;
     all(): Promise<User[]>;
 }

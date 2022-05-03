@@ -1,13 +1,17 @@
-import { AuthRepository } from '../../domain/port/AuthRepository'
+import { UserRepository } from '../../domain/port/UserRepository'
 import { PrismaClient } from '@prisma/client'
 import { User } from '@src/domain/model/User'
 
 const prisma = new PrismaClient()
 
-export class AuthRepositoryImpl implements AuthRepository {
-  async getUser (data: any): Promise<User> {
+export class UserRepositoryImpl implements UserRepository {
+  async getUser (email: string): Promise<User> {
     let user: User = new User()
-    const userEntity = await prisma.user.findUnique(data)
+    const userEntity = await prisma.user.findUnique({
+      where: {
+        email
+      }
+    })
 
     user = {
       id: userEntity?.id as number,
