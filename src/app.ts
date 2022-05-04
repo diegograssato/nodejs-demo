@@ -5,8 +5,8 @@ import compression from 'compression'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 
-import { errorHandler } from './middlewares/error.middleware'
-import { notFoundHandler } from './middlewares/not-found.middleware'
+import { ErrorMiddleware } from './adapter/rest/middlewares/ErrorMiddleware'
+import { NotFoundMiddleware } from './adapter/rest/middlewares/NotFoundMiddleware'
 
 import router from '@routes/index'
 
@@ -22,8 +22,8 @@ class App {
   }
 
   handlers (): void {
-    this.server.use(errorHandler)
-    this.server.use(notFoundHandler)
+    this.server.use(ErrorMiddleware.errorHandler)
+    this.server.use(NotFoundMiddleware.notFoundHandler)
   }
 
   middlewares (): void {
