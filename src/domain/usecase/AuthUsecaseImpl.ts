@@ -2,7 +2,7 @@ import { JwtUtil } from '../../utils/JwtUtil'
 
 import bcrypt from 'bcryptjs'
 
-import { AuthUsecase, UserDTO } from '../port/AuthUsecase'
+import { AuthUsecase } from '../port/AuthUsecase'
 import { UserRepositoryImpl } from '../../adapter/repository/UserRepositoryImpl'
 import { UserRepository } from '../port/UserRepository'
 import { User } from '../model/User'
@@ -14,24 +14,6 @@ export class AuthUsecaseImpl implements AuthUsecase {
 
   constructor () {
     this.userRepository = new UserRepositoryImpl()
-  }
-
-  async register (userDTO: UserDTO): Promise<User> {
-    const { email } = userDTO
-
-    let user = await this.userRepository.getUser(email)
-
-    if (!user) {
-      userDTO.password = bcrypt.hashSync(userDTO.password, 8)
-      user = await this.userRepository.createUser(userDTO)
-    } else {
-      // TODO: usuario ja existente com esse email
-      console.log('Ja existe!')
-    }
-
-    user.accessToken = await JwtUtil.signAccessToken(user)
-
-    return user
   }
 
   async login (email: string, password: string): Promise<User> {
@@ -55,9 +37,5 @@ export class AuthUsecaseImpl implements AuthUsecase {
     const accessToken = await JwtUtil.signAccessToken(user)
 
     return { ...user, accessToken }
-  }
-
-  async all (): Promise<User[]> {
-    return await this.userRepository.getUsers()
   }
 }

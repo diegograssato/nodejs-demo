@@ -8,6 +8,7 @@ export class UserDTO {
   accessToken: string
 }
 
-export interface AuthUsecase {
-    login(email: string, password: string): Promise<User>;
+export interface UserUsecase {
+    register(data: UserDTO): Promise<User>;
+    all(): Promise<User[]>;
 }

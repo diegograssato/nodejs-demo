@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import authRouter from './auth'
+import userRouter from './user'
 
 const router = Router()
 
@@ -8,16 +9,6 @@ router.get('/', (req, res) => {
 })
 
 router.use('/auth', authRouter)
-
-// router.use(async (req, res, next) => {
-//   next(createError.NotFound("Route not Found"));
-// });
-
-// router.use((err, req, res, next) => {
-//   res.status(err.status || 500).json({
-//     status: false,
-//     message: err.message,
-//   });
-// });
+router.use('/user', userRouter)
 
 export default router
