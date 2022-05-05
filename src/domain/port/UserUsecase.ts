@@ -9,6 +9,6 @@ export class UserDTO {
 }
 
 export interface UserUsecase {
-    register(data: UserDTO): Promise<User>;
-    all(): Promise<User[]>;
+    create(data: UserDTO): Promise<User>;
+    list(): Promise<User[]>;
 }

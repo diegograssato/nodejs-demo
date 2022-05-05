@@ -14,7 +14,7 @@ export class UserUsecaseImpl implements UserUsecase {
     this.userRepository = new UserRepositoryImpl()
   }
 
-  async register (userDTO: UserDTO): Promise<User> {
+  async create (userDTO: UserDTO): Promise<User> {
     const { email } = userDTO
 
     let user = await this.userRepository.getUser(email)
@@ -32,7 +32,7 @@ export class UserUsecaseImpl implements UserUsecase {
     return user
   }
 
-  async all (): Promise<User[]> {
+  async list (): Promise<User[]> {
     return await this.userRepository.getUsers()
   }
 }
