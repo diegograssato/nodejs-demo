@@ -35,10 +35,12 @@ export class UserController {
 
   public async getAllUsers (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
-      const userResponse: UserResponse[] = await this.userUsecase.list()
-      const response = new BaseResponse(200, 'All users', userResponse)
+      const usersResponse: UserResponse[] = await this.userUsecase.list()
+      const response = new BaseResponse(200, 'All users', usersResponse)
 
-      return res.status(200).json(response)
+      res.status(200)
+      res.json(response)
+      return res
     } catch (err: any) {
       next(err)
     }
