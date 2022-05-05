@@ -13,7 +13,7 @@ describe('list', () => {
     UserRepositoryImpl.prototype.getUsers = jest.fn().mockImplementation(() => users)
 
     const value = await userUsecaseImpl.list()
-    expect(value).toBe(users)
+    expect(value).toEqual(users)
     expect(value[0].id).toBe(1)
     expect(value[1].id).toBe(2)
   })

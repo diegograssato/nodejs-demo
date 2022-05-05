@@ -6,6 +6,20 @@ export class UserDTO {
   email: string
   password: string
   accessToken: string
+
+  constructor (
+    id: number,
+    name: string,
+    email: string,
+    password: string,
+    accessToken: string
+  ) {
+    this.id = id
+    this.name = name
+    this.email = email
+    this.password = password
+    this.accessToken = accessToken
+  }
 }
 
 export interface UserUsecase {

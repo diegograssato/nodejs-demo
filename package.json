@@ -48,7 +48,7 @@
     "dev": "nodemon --legacy-watch 'src/' --exec 'node -r sucrase/register -r tsconfig-paths/register src/index.ts --transforms typescript,imports' -e ts,js",
     "debug": "nodemon --legacy-watch 'src/' --inspect --exec 'node -r sucrase/register -r tsconfig-paths/register src/index.ts --transforms typescript,imports' -e ts,js",
     "dev-all": "ts-node-dev -r tsconfig-paths/register src/index.ts",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "build": "rm -rf build/ && prettier --write src/ && tsc",
     "lint": "eslint .  --ext .ts",
     "lint-fix": "eslint --fix .  --ext .ts"
