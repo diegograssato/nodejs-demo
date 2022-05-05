@@ -1,5 +1,4 @@
 import { UserUsecaseImpl } from '../../../src/domain/usecase/UserUsecaseImpl'
-import { UserRepositoryImpl } from '../../../src/adapter/repository/UserRepositoryImpl'
 import { User } from '../../../src/domain/model/User'
 
 const userUsecaseImpl = new UserUsecaseImpl()
@@ -10,7 +9,7 @@ describe('list', () => {
     const user2 = new User(2, 'Nome', 'email', 'senha', new Date(), new Date(), 'token')
     const users = [user1, user2]
 
-    UserRepositoryImpl.prototype.getUsers = jest.fn().mockImplementation(() => users)
+    jest.spyOn(userUsecaseImpl.userRepository, 'getUsers').mockResolvedValueOnce(users)
 
     const value = await userUsecaseImpl.list()
     expect(value).toEqual(users)
