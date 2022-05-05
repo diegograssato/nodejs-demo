@@ -25,7 +25,9 @@ export class UserController {
       const userResponse: UserResponse = await this.userUsecase.create(req.body)
       const response = new BaseResponse(201, 'User created successfully', userResponse)
 
-      return res.status(201).json(response)
+      res.status(201)
+      res.json(response)
+      return res
     } catch (err: any) {
       next(err)
     }
