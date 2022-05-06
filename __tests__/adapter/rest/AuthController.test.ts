@@ -60,8 +60,8 @@ const createUserMock = (): UserResponse => {
   user.id = 1
   user.name = 'name'
   user.email = 'email'
-  user.createAt = new Date()
-  user.updateAt = new Date()
+  user.createdAt = new Date(1)
+  user.updatedAt = new Date(1)
   user.accessToken = 'token'
   return user
 }

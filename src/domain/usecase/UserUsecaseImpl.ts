@@ -24,7 +24,7 @@ export class UserUsecaseImpl implements UserUsecase {
       user = await this.userRepository.createUser(userDTO)
     } else {
       // TODO: usuario ja existente com esse email
-      console.log('Ja existe!')
+      // console.log('Ja existe!')
     }
 
     user.accessToken = await JwtUtil.signAccessToken(user)

@@ -8,8 +8,8 @@ export class UserResponse {
   name?: string
   email?: string
   password?: string
-  createAt?: Date
-  updateAt?: Date
+  createdAt?: Date
+  updatedAt?: Date
   accessToken?: string
 }
 
