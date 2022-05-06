@@ -35,7 +35,7 @@ export class UserRepositoryImpl implements UserRepository {
 
   async createUser (data: any): Promise<User> {
     let user: User = new User()
-    const userEntity = await this.prisma.user.create(data)
+    const userEntity = await this.prisma.user.create({ data })
 
     user = {
       id: userEntity?.id as number,
