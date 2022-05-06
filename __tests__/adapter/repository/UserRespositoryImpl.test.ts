@@ -36,15 +36,15 @@ describe('getUser', () => {
 describe('createUser', () => {
   it('should call user.create and return the new user', async () => {
     const prisma = new PrismaClient()
-    const userDto = new UserDTO(1, 'teste', 'teste', 's', 'token')
+    const data = new UserDTO(1, 'teste', 'teste', 's', 'token')
     const userObjectMock = { id: 1, name: 'teste', password: 's', email: 'teste', createdAt: new Date(), updatedAt: new Date() }
     jest.spyOn(prisma.user, 'create').mockResolvedValueOnce(userObjectMock)
     userRepositoryImpl.prisma = prisma
 
-    const returnedValue = await userRepositoryImpl.createUser(userDto)
+    const returnedValue = await userRepositoryImpl.createUser(data)
 
     expect(returnedValue).toEqual(userObjectMock)
-    expect(prisma.user.create).toBeCalledWith(userDto)
+    expect(prisma.user.create).toBeCalledWith({ data })
   })
 })
 
