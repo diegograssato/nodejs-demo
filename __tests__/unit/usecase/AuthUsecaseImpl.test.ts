@@ -33,5 +33,6 @@ describe('login', () => {
     const returnedValue = await authUsecaseImpl.login('email', 'senha')
 
     expect(returnedValue).toEqual(userExpected)
+    expect(returnedValue).not.toHaveProperty('password')
   })
 })

@@ -1,6 +1,6 @@
-import { AuthController, UserResponse } from '../../../src/adapter/rest/AuthController'
+import { AuthController, UserResponse } from '../../../../src/adapter/rest/AuthController'
 import { Request, Response, NextFunction } from 'express'
-import { BaseResponse } from '../../../src/adapter/rest/model/BaseResponse'
+import { BaseResponse } from '../../../../src/adapter/rest/model/BaseResponse'
 
 const authController = new AuthController()
 

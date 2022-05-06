@@ -1,6 +1,6 @@
-import { UserRepositoryImpl } from '../../../src/adapter/repository/UserRepositoryImpl'
+import { UserRepositoryImpl } from '../../../../src/adapter/repository/UserRepositoryImpl'
 import { PrismaClient } from '@prisma/client'
-import { UserDTO } from '../../../src/domain/port/UserUsecase'
+import { UserDTO } from '../../../../src/domain/port/UserUsecase'
 
 const userRepositoryImpl = new UserRepositoryImpl()
 

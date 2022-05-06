@@ -1,6 +1,6 @@
-import { UserController, UserResponse } from '../../../src/adapter/rest/UserController'
+import { UserController, UserResponse } from '../../../../src/adapter/rest/UserController'
 import { Request, Response, NextFunction } from 'express'
-import { BaseResponse } from '../../../src/adapter/rest/model/BaseResponse'
+import { BaseResponse } from '../../../../src/adapter/rest/model/BaseResponse'
 
 const userController = new UserController()
 
