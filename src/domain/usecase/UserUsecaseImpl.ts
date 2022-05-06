@@ -20,7 +20,7 @@ export class UserUsecaseImpl implements UserUsecase {
     let user = await this.userRepository.getUser(email)
 
     if (!user) {
-      userDTO.password = bcrypt.hashSync(userDTO.password, 8)
+      userDTO.password = this.generateHashWithBcrypt(userDTO.password)
       user = await this.userRepository.createUser(userDTO)
     } else {
       // TODO: usuario ja existente com esse email
@@ -34,5 +34,9 @@ export class UserUsecaseImpl implements UserUsecase {
 
   async list (): Promise<User[]> {
     return await this.userRepository.getUsers()
+  }
+
+  private generateHashWithBcrypt (password: string): string {
+    return bcrypt.hashSync(password, 8)
   }
 }
