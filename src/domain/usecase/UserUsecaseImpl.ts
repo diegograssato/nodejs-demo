@@ -14,17 +14,17 @@ export class UserUsecaseImpl implements UserUsecase {
     this.userRepository = new UserRepositoryImpl()
   }
 
-  async register (userDTO: UserDTO): Promise<User> {
+  async create (userDTO: UserDTO): Promise<User> {
     const { email } = userDTO
 
     let user = await this.userRepository.getUser(email)
 
     if (!user) {
-      userDTO.password = bcrypt.hashSync(userDTO.password, 8)
+      userDTO.password = this.generateHashWithBcrypt(userDTO.password)
       user = await this.userRepository.createUser(userDTO)
     } else {
       // TODO: usuario ja existente com esse email
-      console.log('Ja existe!')
+      // console.log('Ja existe!')
     }
 
     user.accessToken = await JwtUtil.signAccessToken(user)
@@ -32,7 +32,11 @@ export class UserUsecaseImpl implements UserUsecase {
     return user
   }
 
-  async all (): Promise<User[]> {
+  async list (): Promise<User[]> {
     return await this.userRepository.getUsers()
+  }
+
+  private generateHashWithBcrypt (password: string): string {
+    return bcrypt.hashSync(password, 8)
   }
 }

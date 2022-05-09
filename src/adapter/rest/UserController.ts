@@ -22,10 +22,12 @@ export class UserController {
 
   public async createUser (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
-      const userResponse: UserResponse = await this.userUsecase.register(req.body)
+      const userResponse: UserResponse = await this.userUsecase.create(req.body)
       const response = new BaseResponse(201, 'User created successfully', userResponse)
 
-      return res.status(201).json(response)
+      res.status(201)
+      res.json(response)
+      return res
     } catch (err: any) {
       next(err)
     }
@@ -33,10 +35,12 @@ export class UserController {
 
   public async getAllUsers (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
-      const userResponse: UserResponse[] = await this.userUsecase.all()
-      const response = new BaseResponse(200, 'All users', userResponse)
+      const usersResponse: UserResponse[] = await this.userUsecase.list()
+      const response = new BaseResponse(200, 'All users', usersResponse)
 
-      return res.status(200).json(response)
+      res.status(200)
+      res.json(response)
+      return res
     } catch (err: any) {
       next(err)
     }

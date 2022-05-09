@@ -1,13 +1,17 @@
 import { UserRepository } from '../../domain/port/UserRepository'
 import { PrismaClient } from '@prisma/client'
-import { User } from '@src/domain/model/User'
-
-const prisma = new PrismaClient()
+import { User } from '../../domain/model/User'
 
 export class UserRepositoryImpl implements UserRepository {
+  prisma: PrismaClient
+
+  constructor () {
+    this.prisma = new PrismaClient()
+  }
+
   async getUser (email: string): Promise<User | null> {
     let user: User = new User()
-    const userEntity = await prisma.user.findUnique({
+    const userEntity = await this.prisma.user.findUnique({
       where: {
         email
       }
@@ -22,8 +26,8 @@ export class UserRepositoryImpl implements UserRepository {
       name: userEntity?.name as string,
       email: userEntity?.email,
       password: userEntity?.password as string,
-      createAt: userEntity?.createdAt,
-      updateAt: userEntity?.updatedAt
+      createdAt: userEntity?.createdAt,
+      updatedAt: userEntity?.updatedAt
     }
 
     return user
@@ -31,15 +35,15 @@ export class UserRepositoryImpl implements UserRepository {
 
   async createUser (data: any): Promise<User> {
     let user: User = new User()
-    const userEntity = await prisma.user.create({ data })
+    const userEntity = await this.prisma.user.create({ data })
 
     user = {
       id: userEntity?.id as number,
       name: userEntity?.name as string,
       email: userEntity?.email,
       password: userEntity?.password as string,
-      createAt: userEntity?.createdAt,
-      updateAt: userEntity?.updatedAt
+      createdAt: userEntity?.createdAt,
+      updatedAt: userEntity?.updatedAt
     }
 
     return user
@@ -47,7 +51,7 @@ export class UserRepositoryImpl implements UserRepository {
 
   async getUsers (): Promise<User[]> {
     let users: User[] = []
-    const userEntitys = await prisma.user.findMany()
+    const userEntitys = await this.prisma.user.findMany()
 
     users = userEntitys.map(userEntity => {
       return {
@@ -55,8 +59,8 @@ export class UserRepositoryImpl implements UserRepository {
         name: userEntity?.name as string,
         email: userEntity?.email,
         password: userEntity?.password as string,
-        createAt: userEntity?.createdAt,
-        updateAt: userEntity?.updatedAt
+        createdAt: userEntity?.createdAt,
+        updatedAt: userEntity?.updatedAt
       }
     })
 

@@ -1,8 +1,8 @@
 import HttpException from '../common/HttpException'
 import { Request, Response, NextFunction } from 'express'
-import { NotFoundError } from '@src/domain/exception/NotFoundError'
-import { BadValueError } from '@src/domain/exception/BadValueError'
-import { UnauthorizedError } from '@src/domain/exception/UnauthorizedError'
+import { NotFoundError } from '../../../domain/exception/NotFoundError'
+import { BadValueError } from '../../..//domain/exception/BadValueError'
+import { UnauthorizedError } from '../../../domain/exception/UnauthorizedError'
 
 interface ErrorHandle {
     data: any;

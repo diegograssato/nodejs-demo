@@ -8,8 +8,8 @@ export class UserResponse {
   name?: string
   email?: string
   password?: string
-  createAt?: Date
-  updateAt?: Date
+  createdAt?: Date
+  updatedAt?: Date
   accessToken?: string
 }
 
@@ -21,11 +21,15 @@ export class AuthController {
   }
 
   public async login (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
+    // TODO: implementar validação de bad request para parametros informados (ausente)
     const { email, password } = req.body
     try {
       const userResponse: UserResponse = await this.authUsecase.login(email, password)
       const response = new BaseResponse(200, 'Account login successful', userResponse)
-      return res.status(200).json(response)
+
+      res.status(200)
+      res.json(response)
+      return res
     } catch (err: any) {
       next(err)
     }
