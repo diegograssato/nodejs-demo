@@ -1,6 +1,5 @@
-
-import { Request, Response } from 'express'
-const halson = require('halson')
+import { Request, Response } from "express";
+const halson = require("halson");
 
 // const handleResponse = (res: Request, data: Response) => res.status(200).send(data);
 interface ResponseHandle {
@@ -8,29 +7,33 @@ interface ResponseHandle {
     meta?: any;
 }
 
-module.exports = function handleResponse (req: Request, res: Response, data: any): void {
-  // if (!data) {
-  //     next();
+module.exports = function handleResponse(
+    req: Request,
+    res: Response,
+    data: any
+): void {
+    // if (!data) {
+    //     next();
 
-  // }
-  const meta = {
-    requestDateTime: new Date()
-  }
+    // }
+    const meta = {
+        requestDateTime: new Date(),
+    };
 
-  const respt: ResponseHandle = { data, meta }
+    const respt: ResponseHandle = { data, meta };
 
-  const resource = halson(respt).addLink('self', '/users/')
+    const resource = halson(respt).addLink("self", "/users/");
 
-  res.json(resource)
+    res.json(resource);
 
-  // if (res.statusCode !== 200) {
+    // if (res.statusCode !== 200) {
 
-  // } else {
+    // } else {
 
-  // }
-  // if (req.user) {
-  //     next();
-  // } else {
-  //     // return unauthorized
-  //     res.send(401, "Unauthorized");
-}
+    // }
+    // if (req.user) {
+    //     next();
+    // } else {
+    //     // return unauthorized
+    //     res.send(401, "Unauthorized");
+};

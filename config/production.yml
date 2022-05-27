@@ -1,0 +1,8 @@
+app:
+    port: 8080
+
+api: 
+    autenticacao: 'http://localhost/auth'
+
+security:
+    secret: 087e96308b10409235d8e943e77369f3e5676bc5d47e660ca88f29d88590df4c68e32b4e6c9aa2095c3eaaa1d29818adc9fdd8d6726e607fb6b7e98ac7b96e10

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  api:
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
+    build: 
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    links:
+      - postgres
+    ports:
+      - "8080:8080"
+
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+   
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: postgres
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+       - pgadmin:/var/lib/pgadmin
+    links:
+      - postgres
+    ports:
+      - "5050:80"
+
+  prisma-studio:
+    image: timothyjmiller/prisma-studio:latest
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres?schema=public
+      PROJECT_NAME: demo-project
+      POSTGRES_DATABASE: postgres
+      POSTGRES_HOST: postgres
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+      PRISMA_STUDIO_PORT: 5555
+      POSTGRES_PATH: /postgres
+    links:
+      - postgres
+    ports:
+      - 5555:5555      
+
+volumes:
+  postgres-volume:
+  pgadmin:

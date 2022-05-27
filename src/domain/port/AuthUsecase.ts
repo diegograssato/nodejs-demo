@@ -1,11 +1,11 @@
-import { User } from '../model/User'
+import { User } from "../model";
 
 export class UserDTO {
-  id: number
-  name: string | null
-  email: string
-  password: string
-  accessToken: string
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    accessToken: string;
 }
 
 export interface AuthUsecase {

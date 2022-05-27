@@ -1,6 +1,6 @@
 import { UserRepository } from '../../domain/port/UserRepository'
 import { PrismaClient } from '@prisma/client'
-import { User } from '@src/domain/model/User'
+import { User } from '../../domain/model/User'
 
 const prisma = new PrismaClient()
 
@@ -31,7 +31,8 @@ export class UserRepositoryImpl implements UserRepository {
 
   async createUser (data: any): Promise<User> {
     let user: User = new User()
-    const userEntity = await prisma.user.create(data)
+
+    const userEntity = await prisma.user.create({ data })
 
     user = {
       id: userEntity?.id as number,
@@ -49,7 +50,7 @@ export class UserRepositoryImpl implements UserRepository {
     let users: User[] = []
     const userEntitys = await prisma.user.findMany()
 
-    users = userEntitys.map(userEntity => {
+    users = userEntitys.map((userEntity) => {
       return {
         id: userEntity?.id as number,
         name: userEntity?.name as string,

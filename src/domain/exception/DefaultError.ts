@@ -1,8 +1,8 @@
 export class DefaultError extends Error {
-  data: string
+    data: string;
 
-  constructor (data: string) {
-    super(data)
-    this.data = data
-  }
+    constructor(data: string) {
+        super(data);
+        this.data = data;
+    }
 }

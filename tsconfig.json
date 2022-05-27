@@ -7,8 +7,8 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
-    "baseUrl": "./",
-    "sourceMap": true,
+    "baseUrl": ".",
+    "sourceMap": false,
     "module": "commonjs",
     "esModuleInterop": true,
     "outDir": "./build",
@@ -20,27 +20,25 @@
     "allowJs": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "paths": {
-      "@src/*": [
-        "src/*"
-      ],
-      "@routes/*": [
-        "src/adapter/rest/routes/*"
-      ],
-      "@test/*": [
-        "./test/*"
-      ]
-    },
+    "resolveJsonModule": true,
+    "lib": [
+      "es6",
+      "dom"
+    ]
   },
   "include": [
-    "./src/**/*.ts",
+    "./src/**/*",
     "./test/**/*.ts"
   ],
   "exclude": [
     "node_modules/*",
-    "build/*",
     ".webpack/**/*",
     ".vscode/**/*",
     ".devcontainer/**/*"
+  ],
+  "plugins": [
+    {
+      "transform": "@zerollup/ts-transform-paths",
+    }
   ]
 }
