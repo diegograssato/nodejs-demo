@@ -9,9 +9,16 @@ function build() {
 }
 
 function run() {
-    docker rm -f rest-server
-    docker run -p 8080:8080 --rm --env DATABASE_URL="postgresql://postgres:postgres@10.22.0.64:5432/postgres?schema=public" --name rest-server "${IMAGE}"
+    docker-compose -f docker/docker-compose.yml build
+    docker-compose -f docker/docker-compose.yml up
+}
 
+function down() {
+    docker-compose -f docker/docker-compose.yml down
+}
+
+function migrate() {
+    docker-compose -f docker/docker-compose.yml exec api bash -c "npx prisma migrate dev"
 }
 
 $@
